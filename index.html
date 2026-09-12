@@ -82,6 +82,8 @@
   .hint{font-size:14px;color:var(--muted);max-width:52ch}
   .err{font-size:15px;color:var(--err);min-height:22px;font-weight:500}
   .toast{font-size:15px;color:var(--steel);min-height:22px}
+  .alt{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);max-width:520px;font-size:15px;color:var(--muted)}
+  .alt a{font-weight:500;text-decoration:underline;text-underline-offset:3px}
   input,textarea,.cta,.stack p,.page{scroll-margin-top:90px}
 
   nav.dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:grid;gap:2px;z-index:10}
@@ -263,6 +265,7 @@
         <p class="err" id="err" role="alert"></p>
         <p class="toast" id="toast" role="status"></p>
       </form>
+      <p class="alt"><span data-t="f_alt">Or write directly:</span> <a id="mail" href="mailto:david@raedical.co">david@raedical.co</a></p>
     </div>
   </section>
 
@@ -307,7 +310,7 @@
       f_name:'Your name', f_company:'Company', f_email:'Email',
       f_q:'What do you check first when you want to know how the business is going?', f_opt:'(optional)',
       f_hint:'This opens your email program with the request filled in and addressed. Nothing is sent from this website.',
-      f_send:'Send via email',
+      f_send:'Send via email', f_alt:'Or write directly:',
       err_req:'Please fill in your name and company.', err_email:'Please enter a valid email address.',
       toast:'Your email program should open now. The text is also copied to your clipboard in case it does not.',
       subject:'30-minute conversation — ', m_name:'Name', m_company:'Company', m_email:'Email', m_q:'What I check first'
@@ -345,7 +348,7 @@
       f_name:'Ihr Name', f_company:'Unternehmen', f_email:'E-Mail',
       f_q:'Was schauen Sie als Erstes an, wenn Sie wissen wollen, wie es dem Unternehmen geht?', f_opt:'(optional)',
       f_hint:'Dabei öffnet sich Ihr E-Mail-Programm mit der fertig ausgefüllten und adressierten Anfrage. Von dieser Website wird nichts versendet.',
-      f_send:'Per E-Mail senden',
+      f_send:'Per E-Mail senden', f_alt:'Oder schreiben Sie direkt:',
       err_req:'Bitte geben Sie Ihren Namen und Ihr Unternehmen an.', err_email:'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
       toast:'Ihr E-Mail-Programm sollte sich jetzt öffnen. Der Text ist zusätzlich in Ihre Zwischenablage kopiert, falls nicht.',
       subject:'30-minütiges Gespräch — ', m_name:'Name', m_company:'Unternehmen', m_email:'E-Mail', m_q:'Was ich als Erstes anschaue'
