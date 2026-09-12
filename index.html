@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EDEFEC">
 <title>Monday, 07:00 — one page on your business</title>
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,15 +24,15 @@
   .skip{position:absolute;left:16px;top:-80px;z-index:20;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:6px;font-weight:500}
   .skip:focus{top:16px;text-decoration:none}
 
-  header{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 32px;z-index:10;background:rgba(237,239,236,.92);backdrop-filter:blur(6px)}
-  .brand{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink)}
-  header nav{display:flex;align-items:center;gap:20px}
-  .navlink{color:var(--ink);font-weight:500;font-size:14px}
+  header{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px max(32px,env(safe-area-inset-right)) 14px max(32px,env(safe-area-inset-left));z-index:10;background:rgba(237,239,236,.92);backdrop-filter:blur(6px)}
+  .brand{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);padding:8px 0}
+  header nav{display:flex;align-items:center;gap:16px}
+  .navlink{color:var(--ink);font-weight:500;font-size:14px;padding:10px 6px}
   .lang{display:flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
-  .lang button{background:none;border:0;padding:5px 12px;color:var(--ink);font-weight:500;font-size:13px;letter-spacing:.02em;min-height:28px}
+  .lang button{background:none;border:0;padding:8px 14px;color:var(--ink);font-weight:500;font-size:13px;letter-spacing:.02em;min-height:36px}
   .lang button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 
-  .s{min-height:100svh;display:grid;place-items:center;padding:112px 32px 72px;scroll-snap-align:start}
+  .s{min-height:100svh;display:grid;place-items:center;padding:112px max(32px,env(safe-area-inset-right)) 72px max(32px,env(safe-area-inset-left));scroll-snap-align:start}
   .s:focus{outline:none}
   .s>div{width:min(860px,100%)}
 
@@ -127,7 +128,37 @@
     .js .page li.warn{background-size:100% 100%!important;transition:none!important}
   }
   @media (hover:none){.keys{display:none}}
-  @media (max-width:600px){header{padding:14px 18px}.brand{font-size:16px}header nav{gap:12px}.s{padding:96px 18px 64px}.page{max-width:100%;padding:22px 20px}nav.dots,.keys{display:none}}
+
+  /* Phone: legible timeline labels, thumb-sized controls */
+  @media (max-width:600px){
+    header{padding:10px max(18px,env(safe-area-inset-right)) 10px max(18px,env(safe-area-inset-left))}
+    .brand{font-size:16px}header nav{gap:8px}.lang button{min-height:40px;padding:9px 14px}
+    .s{padding:96px max(18px,env(safe-area-inset-right)) 64px max(18px,env(safe-area-inset-left))}
+    .page{max-width:100%;padding:22px 20px}
+    .tl{font-size:21px;margin-top:28px}
+    nav.dots,.keys{display:none}
+  }
+
+  /* Big screen: type sized for a room, not a desk */
+  @media (min-width:1500px){
+    .s>div{width:min(1100px,100%)}
+    h1{font-size:clamp(92px,6.5vw,132px)}
+    h2{font-size:clamp(56px,3.6vw,76px)}
+    h2.quote{font-size:clamp(34px,2.4vw,48px);max-width:32ch}
+    .lede{font-size:30px;max-width:38ch}
+    .quote+p{font-size:24px;max-width:58ch}
+    .stack{font-size:27px;max-width:60ch;gap:18px}
+    .cap,.note,.hint,.alt,.err,.toast{font-size:20px}
+    .page{font-size:20px;max-width:720px;padding:36px 44px}
+    .page h3{font-size:22px}
+    .spark{width:96px;height:28px}
+    .tl{max-width:840px;font-size:17px}
+    .price strong{font-size:84px}.price span{font-size:28px}
+    .cta{font-size:20px;padding:18px 32px}
+    label{font-size:17px}input,textarea{font-size:19px}
+    .brand{font-size:22px}.navlink{font-size:17px}.lang button{font-size:15px;padding:9px 18px}
+    nav.dots{right:24px}.keys{font-size:15px}
+  }
 </style>
 </head>
 <body>
@@ -271,7 +302,7 @@
 
 </main>
 
-<p class="keys" id="keys" aria-hidden="true" data-t="keys"><kbd>↑</kbd> <kbd>↓</kbd> move between sections</p>
+<p class="keys" id="keys" aria-hidden="true" data-t="keys"><kbd>↑</kbd> <kbd>↓</kbd> move between sections &nbsp;·&nbsp; <kbd>F</kbd> full screen</p>
 
 <script>
   const TO='david@raedical.co';
@@ -282,7 +313,7 @@
       skip:'Skip to content', brand:'Monday, 07:00', nav_contact:'Contact',
       nav_site:'Site', nav_lang:'Language', lang_de:'Deutsch', lang_en:'English', nav_sections:'Sections',
       d0:'Start', d1:'The problem', d2:'The page', d3:'How it works', d4:'What it costs', d5:'Contact',
-      keys:'<kbd>↑</kbd> <kbd>↓</kbd> move between sections',
+      keys:'<kbd>↑</kbd> <kbd>↓</kbd> move between sections &nbsp;·&nbsp; <kbd>F</kbd> full screen',
       h1:'Every Monday,<br>07:00.<br>One page.',
       lede:"What changed in your business last week, what's off, and what to ask your team about. Before the month-end report — not after.",
       quote:'"What did you find out too late last year?"',
@@ -320,7 +351,7 @@
       skip:'Zum Inhalt springen', brand:'Montag, 07:00', nav_contact:'Kontakt',
       nav_site:'Website', nav_lang:'Sprache', lang_de:'Deutsch', lang_en:'English', nav_sections:'Abschnitte',
       d0:'Start', d1:'Das Problem', d2:'Die Seite', d3:'So funktioniert es', d4:'Was es kostet', d5:'Kontakt',
-      keys:'<kbd>↑</kbd> <kbd>↓</kbd> wechseln zwischen Abschnitten',
+      keys:'<kbd>↑</kbd> <kbd>↓</kbd> wechseln zwischen Abschnitten &nbsp;·&nbsp; <kbd>F</kbd> Vollbild',
       h1:'Jeden Montag,<br>07:00.<br>Eine Seite.',
       lede:'Was sich in Ihrem Unternehmen letzte Woche verändert hat, was nicht stimmt und wonach Sie Ihr Team fragen sollten. Vor dem Monatsabschluss – nicht danach.',
       quote:'„Was haben Sie letztes Jahr zu spät erfahren?“',
@@ -417,6 +448,12 @@
       e.preventDefault();goTo(cur-1);
     }else if(e.key==='Home'){e.preventDefault();goTo(0)}
     else if(e.key==='End'){e.preventDefault();goTo(secs.length-1)}
+    else if(e.key==='f'||e.key==='F'){
+      e.preventDefault();
+      if(document.fullscreenElement)document.exitFullscreen();
+      else document.documentElement.requestFullscreen?.().catch(()=>{});
+      keys.classList.add('off');
+    }
   });
   dots.forEach((d,i)=>d.onclick=e=>{e.preventDefault();goTo(i)});
 
