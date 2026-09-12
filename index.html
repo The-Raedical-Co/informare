@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monday, 07:00 — one page on your business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFEC; --ink:#17212B; --steel:#2F5D8A; --mist:#B7C4CF; --amber:#D6A21A; --line:#CAD2D8;
+    --sans:'IBM Plex Sans',system-ui,sans-serif; --serif:'IBM Plex Serif',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%}
+  body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--steel);text-decoration:none}a:hover{text-decoration:underline}
+  button{font:inherit;cursor:pointer}
+  :focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+  header{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;z-index:10;background:var(--paper)}
+  .brand{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink)}
+  .mode{display:flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
+  .mode button{background:none;border:0;padding:6px 16px;color:var(--ink);font-weight:500;font-size:14px}
+  .mode button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+
+  #deck{height:100%;overflow:hidden;position:relative}
+  .slide{position:absolute;inset:0;display:grid;place-items:center;padding:96px 32px 88px;opacity:0;transform:translateX(24px);transition:opacity .35s,transform .35s;pointer-events:none}
+  .slide.on{opacity:1;transform:none;pointer-events:auto}
+  .slide>div{width:min(860px,100%)}
+
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,7vw,92px);line-height:1.02;letter-spacing:-.01em}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.5vw,56px);line-height:1.1;margin-bottom:24px}
+  .lede{font-size:clamp(18px,2.2vw,24px);max-width:36ch;margin-top:24px;color:#3B4852}
+  .quote{font-family:var(--serif);font-style:italic;font-size:clamp(22px,3vw,34px);max-width:30ch;line-height:1.3}
+  .quote+p{margin-top:24px;color:var(--steel);max-width:52ch}
+
+  .stack{display:grid;gap:14px;max-width:58ch;font-size:clamp(17px,1.9vw,21px)}
+  .stack p{padding-left:18px;border-left:3px solid var(--steel);color:#3B4852}
+
+  .page{background:#fff;border:1px solid var(--line);padding:28px 32px;font-size:15px;max-width:520px;margin-top:8px;box-shadow:0 20px 40px -30px rgba(23,33,43,.3)}
+  .page .hd{display:flex;justify-content:space-between;font-family:var(--serif);border-bottom:1.5px solid var(--ink);padding-bottom:10px;margin-bottom:16px}
+  .page h4{font-family:var(--serif);font-weight:600;font-size:16px;margin:16px 0 6px}
+  .page ul{padding-left:18px;color:#3B4852}
+  .page li{margin:3px 0}
+  .page .warn::marker{color:var(--amber)}
+
+  .price{display:flex;gap:40px;flex-wrap:wrap;align-items:baseline;margin-bottom:28px}
+  .price strong{font-family:var(--serif);font-size:clamp(48px,7vw,84px);font-weight:600;line-height:1}
+  .price span{color:var(--steel);font-size:clamp(18px,2vw,24px)}
+
+  .cta{display:inline-block;background:var(--ink);color:var(--paper);border:0;padding:14px 26px;border-radius:6px;font-weight:500;cursor:pointer}
+  .cta:hover{opacity:.9}
+
+  nav.ctrl{position:fixed;bottom:24px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:20px;z-index:10}
+  nav.ctrl button{background:var(--paper);border:1.5px solid var(--ink);border-radius:999px;width:44px;height:44px;color:var(--ink);font-weight:500}
+  nav.ctrl button:hover{background:var(--ink);color:var(--paper)}
+
+  .dots{display:flex;gap:8px}
+  .dots i{width:8px;height:8px;border-radius:50%;background:var(--mist);display:block}
+  .dots i.on{background:var(--ink)}
+
+  #contact{display:none;min-height:100%;padding:120px 32px 80px}
+  #contact.on{display:block}
+  .wrap{width:min(760px,100%);margin:0 auto}
+  form{display:grid;gap:18px;margin-top:32px;max-width:520px}
+  label{display:grid;gap:6px;font-size:14px;font-weight:500}
+  input,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+  input:focus,textarea:focus{border-color:var(--steel);outline:none;box-shadow:0 0 0 3px rgba(47,93,138,.1)}
+  textarea{min-height:110px;resize:vertical;font-family:var(--sans)}
+  .note{color:var(--steel);font-size:15px;max-width:52ch;margin-top:16px}
+  .toast{margin-top:14px;font-size:15px;min-height:22px;color:var(--steel)}
+
+  @media (prefers-reduced-motion:reduce){.slide{transition:none}}
+  @media (max-width:600px){header{padding:14px 18px}.slide{padding:84px 18px 88px}.page{max-width:100%}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="#" data-go="0">Monday, 07:00</a>
+  <div class="mode" role="group" aria-label="View">
+    <button id="mPitch" aria-pressed="true">Pitch</button>
+    <button id="mContact" aria-pressed="false">Contact</button>
+  </div>
+</header>
+
+<main id="deck" aria-live="polite">
+
+  <section class="slide on">
+    <div>
+      <h1>Every Monday,<br>07:00.<br>One page.</h1>
+      <p class="lede">What changed in your business last week, what's off, and what to ask your team about. Before the month-end report — not after.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <p class="quote">"What did you find out too late last year?"</p>
+      <p>Most CEOs of mid-sized manufacturers get their answer at month-end, from a controller's spreadsheet, four weeks after the fact. By then the margin has already moved, the customer has already gone quiet, the supplier has already slipped.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>This is the page.</h2>
+      <div class="page" aria-label="Example weekly report">
+        <div class="hd"><span>Weekly review</span><span>KW 37 · Mon 14 Sep</span></div>
+        <h4>What changed</h4>
+        <ul><li>Order intake up 6% vs. 4-week average, driven by two customers</li><li>Backlog now 9.2 weeks (target 8)</li></ul>
+        <h4>What's off</h4>
+        <ul><li class="warn">Scrap rate on line 3 doubled since Wednesday</li><li class="warn">Receivables over 60 days: +€184k, one customer</li></ul>
+        <h4>Ask about</h4>
+        <ul><li>Why line 3 — material batch or setup?</li><li>Is the €184k a dispute or a payment problem?</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>How it works</h2>
+      <div class="stack">
+        <p>Connects to the systems you already have — ERP, accounting, production data, even Excel exports.</p>
+        <p>No new software for your team, no logins, no dashboards to learn. You read one page.</p>
+        <p>Every anomaly is checked by a person before it reaches you. You get judgement, not alerts.</p>
+        <p>Set up in two weeks, then it simply arrives.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>What it costs</h2>
+      <div class="price">
+        <strong>€1,500</strong><span>per month</span>
+      </div>
+      <div class="stack">
+        <p>First month free. If it doesn't change a decision, you owe nothing.</p>
+        <p>Cancel any month. No contract, no setup fee.</p>
+        <p>Three pilot places, so every page gets full attention.</p>
+      </div>
+      <p style="margin-top:32px"><button class="cta" data-mode="contact">Book a 30-minute conversation</button></p>
+    </div>
+  </section>
+
+</main>
+
+<nav class="ctrl" aria-label="Slides">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <div class="dots" id="dots"></div>
+  <button id="next" aria-label="Next slide">→</button>
+</nav>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Let's look at your numbers.</h2>
+    <p class="note">30 minutes at your office. No slides, no pitch — I want to see how you check on the business today. If there's a fit, I'll tell you. If not, I'll tell you that too.</p>
+    <form id="f" novalidate>
+      <label>Your name<input name="name" required autocomplete="name"></label>
+      <label>Company<input name="company" required autocomplete="organization"></label>
+      <label>Email<input name="email" type="email" required autocomplete="email"></label>
+      <label>What do you check first when you want to know how the business is going?<textarea name="q"></textarea></label>
+      <div><button class="cta" type="submit">Send request</button></div>
+      <div class="toast" id="toast" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const TO='you@example.com';
+
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  slides.forEach((_,i)=>{const d=document.createElement('i');if(!i)d.classList.add('on');dots.append(d)});
+  let cur=0;
+  function go(n){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    slides[cur].classList.remove('on');dots.children[cur].classList.remove('on');
+    cur=n;slides[cur].classList.add('on');dots.children[cur].classList.add('on');
+  }
+  document.getElementById('prev').onclick=()=>go(cur-1);
+  document.getElementById('next').onclick=()=>go(cur+1);
+  document.querySelector('[data-go]').onclick=e=>{e.preventDefault();setMode('pitch');go(0)};
+  addEventListener('keydown',e=>{
+    if(document.getElementById('contact').classList.contains('on'))return;
+    if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1)}
+    if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  });
+  let x0=null;
+  document.getElementById('deck').addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  document.getElementById('deck').addEventListener('touchend',e=>{
+    if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;
+    if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));
+  });
+
+  const deck=document.getElementById('deck'),contact=document.getElementById('contact'),ctrl=document.querySelector('nav.ctrl');
+  function setMode(m){
+    const c=m==='contact';
+    deck.style.display=c?'none':'';ctrl.style.display=c?'none':'';
+    contact.classList.toggle('on',c);
+    document.getElementById('mPitch').setAttribute('aria-pressed',!c);
+    document.getElementById('mContact').setAttribute('aria-pressed',c);
+    if(c)setTimeout(()=>contact.querySelector('input').focus(),50);
+  }
+  document.getElementById('mPitch').onclick=()=>setMode('pitch');
+  document.getElementById('mContact').onclick=()=>setMode('contact');
+  document.querySelector('[data-mode=contact]').onclick=()=>setMode('contact');
+
+  document.getElementById('f').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const d=Object.fromEntries(new FormData(e.target));
+    const toast=document.getElementById('toast');
+    if(!d.name||!d.company||!/^\S+@\S+\.\S+$/.test(d.email)){toast.textContent='Name, company and a valid email are needed.';return}
+    const body=`Name: ${d.name}\nCompany: ${d.company}\nEmail: ${d.email}\n\nWhat I check first:\n${d.q||'-'}`;
+    try{await navigator.clipboard.writeText(body)}catch(_){}
+    location.href=`mailto:${TO}?subject=${encodeURIComponent('30-minute conversation — '+d.company)}&body=${encodeURIComponent(body)}`;
+    toast.textContent='Your mail app should open now. The message is also copied to your clipboard.';
+  });
+</script>
+</body>
+</html>
