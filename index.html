@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#EDEFEC; --ink:#17212B; --steel:#2F5D8A; --mist:#B7C4CF; --amber:#D6A21A; --amber-soft:rgba(214,162,26,.22); --line:#CAD2D8; --muted:#3B4852;
+    --paper:#EDEFEC; --ink:#17212B; --steel:#2F5D8A; --mist:#B7C4CF; --amber:#D6A21A; --amber-soft:rgba(214,162,26,.22); --line:#CAD2D8; --muted:#3B4852; --err:#A3261E;
     --sans:'IBM Plex Sans',system-ui,sans-serif; --serif:'IBM Plex Serif',Georgia,serif;
   }
   *{box-sizing:border-box;margin:0}
@@ -18,22 +18,27 @@
   a{color:var(--steel);text-decoration:none}a:hover{text-decoration:underline}
   button{font:inherit;cursor:pointer}
   :focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .skip{position:absolute;left:16px;top:-80px;z-index:20;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:6px;font-weight:500}
+  .skip:focus{top:16px;text-decoration:none}
 
   header{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 32px;z-index:10;background:rgba(237,239,236,.92);backdrop-filter:blur(6px)}
   .brand{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink)}
-  .hdr-r{display:flex;align-items:center;gap:20px}
+  header nav{display:flex;align-items:center;gap:20px}
   .navlink{color:var(--ink);font-weight:500;font-size:14px}
   .lang{display:flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
-  .lang button{background:none;border:0;padding:5px 12px;color:var(--ink);font-weight:500;font-size:13px;letter-spacing:.02em}
+  .lang button{background:none;border:0;padding:5px 12px;color:var(--ink);font-weight:500;font-size:13px;letter-spacing:.02em;min-height:28px}
   .lang button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 
   .s{min-height:100svh;display:grid;place-items:center;padding:112px 32px 72px;scroll-snap-align:start}
+  .s:focus{outline:none}
   .s>div{width:min(860px,100%)}
 
   h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,7vw,92px);line-height:1.02;letter-spacing:-.01em}
   h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.5vw,56px);line-height:1.1;margin-bottom:24px}
   .lede{font-size:clamp(18px,2.2vw,24px);max-width:36ch;margin-top:24px;color:var(--muted)}
-  .quote{font-family:var(--serif);font-style:italic;font-size:clamp(22px,3vw,34px);max-width:30ch;line-height:1.3}
+  h2.quote{font-style:italic;font-weight:400;font-size:clamp(22px,3vw,34px);max-width:30ch;line-height:1.3;margin-bottom:0}
   .quote+p{margin-top:24px;color:var(--muted);max-width:56ch}
   .cap{margin-top:10px;color:var(--steel);font-size:15px}
 
@@ -42,7 +47,7 @@
 
   .page{background:#fff;border:1px solid var(--line);padding:28px 32px;font-size:15px;max-width:520px;margin-top:8px;box-shadow:0 20px 40px -30px rgba(23,33,43,.3)}
   .page .hd{display:flex;justify-content:space-between;font-family:var(--serif);border-bottom:1.5px solid var(--ink);padding-bottom:10px;margin-bottom:16px}
-  .page h4{font-family:var(--serif);font-weight:600;font-size:16px;margin:16px 0 6px}
+  .page h3{font-family:var(--serif);font-weight:600;font-size:16px;margin:16px 0 6px}
   .page ul{padding-left:18px;color:var(--muted)}
   .page li{margin:3px 0;padding:1px 4px;margin-left:-4px}
   .page .warn::marker{color:var(--amber)}
@@ -51,8 +56,7 @@
   .spark circle{fill:var(--amber)}
 
   .tl{width:100%;max-width:640px;margin-top:40px;overflow:visible;font-size:13px}
-  .tl .axis{stroke:var(--line);stroke-width:2}
-  .tl .tick{stroke:var(--line);stroke-width:2}
+  .tl .axis,.tl .tick{stroke:var(--line);stroke-width:2}
   .tl .bar{fill:var(--mist)}
   .tl .ev{fill:var(--amber)}
   .tl .mon{fill:var(--ink)}
@@ -64,17 +68,31 @@
   .price strong{font-family:var(--serif);font-size:clamp(40px,5vw,64px);font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
   .price span{color:var(--steel);font-size:clamp(18px,2vw,24px)}
 
-  .cta{display:inline-block;background:var(--ink);color:var(--paper);border:0;padding:14px 26px;border-radius:6px;font-weight:500;cursor:pointer}
+  .cta{display:inline-block;background:var(--ink);color:var(--paper);border:0;padding:14px 26px;border-radius:6px;font-weight:500;cursor:pointer;min-height:44px}
   .cta:hover{opacity:.9;text-decoration:none}
 
-  #contact{scroll-snap-align:start}
   form{display:grid;gap:18px;margin-top:32px;max-width:520px}
   label{display:grid;gap:6px;font-size:14px;font-weight:500}
-  input,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
-  input:focus,textarea:focus{border-color:var(--steel);outline:none;box-shadow:0 0 0 3px rgba(47,93,138,.1)}
+  .opt{font-weight:400;color:var(--muted)}
+  input,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);min-height:44px}
+  input:focus,textarea:focus{border-color:var(--steel);outline:none;box-shadow:0 0 0 3px rgba(47,93,138,.15)}
+  input[aria-invalid=true],textarea[aria-invalid=true]{border-color:var(--err)}
   textarea{min-height:110px;resize:vertical;font-family:var(--sans)}
   .note{color:var(--steel);font-size:15px;max-width:52ch;margin-top:16px}
-  .toast{margin-top:14px;font-size:15px;min-height:22px;color:var(--steel)}
+  .hint{font-size:14px;color:var(--muted);max-width:52ch}
+  .err{font-size:15px;color:var(--err);min-height:22px;font-weight:500}
+  .toast{font-size:15px;color:var(--steel);min-height:22px}
+  input,textarea,.cta,.stack p,.page{scroll-margin-top:90px}
+
+  nav.dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:grid;gap:2px;z-index:10}
+  nav.dots a{width:28px;height:28px;display:grid;place-items:center;border-radius:50%}
+  nav.dots a::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--mist);transition:transform .25s,background .25s}
+  nav.dots a:hover::before{background:var(--steel)}
+  nav.dots a[aria-current=true]::before{background:var(--ink);transform:scale(1.35)}
+
+  .keys{position:fixed;bottom:14px;left:0;right:0;text-align:center;font-size:13px;color:var(--steel);pointer-events:none;transition:opacity .4s}
+  .keys.off{opacity:0}
+  kbd{font-family:var(--sans);border:1px solid var(--line);border-radius:4px;padding:0 5px;background:#fff}
 
   /* Motion: data arrives, the anomaly is marked, the question is prescribed */
   .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
@@ -103,39 +121,52 @@
 
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .js .reveal,.js .tl *,.js .cap,.js .page .blk,.js .spark *,.js .stack p{transition:none!important;opacity:1!important;transform:none!important}
+    .js .reveal,.js .tl *,.js .cap,.js .page .blk,.js .spark *,.js .stack p,nav.dots a::before{transition:none!important;opacity:1!important;transform:none!important}
     .js .page li.warn{background-size:100% 100%!important;transition:none!important}
   }
-  @media (max-width:600px){header{padding:14px 18px}.brand{font-size:16px}.hdr-r{gap:12px}.s{padding:96px 18px 64px}.page{max-width:100%;padding:22px 20px}}
+  @media (hover:none){.keys{display:none}}
+  @media (max-width:600px){header{padding:14px 18px}.brand{font-size:16px}header nav{gap:12px}.s{padding:96px 18px 64px}.page{max-width:100%;padding:22px 20px}nav.dots,.keys{display:none}}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#main" data-t="skip">Skip to content</a>
+
 <header>
   <a class="brand" href="#top" data-t="brand">Monday, 07:00</a>
-  <div class="hdr-r">
+  <nav data-ta="nav_site" aria-label="Site">
     <a class="navlink" href="#contact" data-t="nav_contact">Contact</a>
-    <div class="lang" role="group" aria-label="Language">
-      <button data-lang="de" aria-pressed="false">DE</button>
-      <button data-lang="en" aria-pressed="true">EN</button>
+    <div class="lang" role="group" data-ta="nav_lang" aria-label="Language">
+      <button type="button" data-lang="de" lang="de" aria-pressed="false" data-ta="lang_de">DE</button>
+      <button type="button" data-lang="en" lang="en" aria-pressed="true" data-ta="lang_en">EN</button>
     </div>
-  </div>
+  </nav>
 </header>
 
-<main>
+<nav class="dots" data-ta="nav_sections" aria-label="Sections">
+  <a href="#top" data-ta="d0" aria-current="true"></a>
+  <a href="#problem" data-ta="d1"></a>
+  <a href="#page" data-ta="d2"></a>
+  <a href="#how" data-ta="d3"></a>
+  <a href="#price" data-ta="d4"></a>
+  <a href="#contact" data-ta="d5"></a>
+</nav>
 
-  <section class="s" id="top">
+<main id="main">
+
+  <section class="s" id="top" tabindex="-1" aria-labelledby="h-top">
     <div class="reveal">
-      <h1 data-t="h1">Every Monday,<br>07:00.<br>One page.</h1>
+      <h1 id="h-top" data-t="h1">Every Monday,<br>07:00.<br>One page.</h1>
       <p class="lede" data-t="lede">What changed in your business last week, what's off, and what to ask your team about. Before the month-end report — not after.</p>
     </div>
   </section>
 
-  <section class="s">
+  <section class="s" id="problem" tabindex="-1" aria-labelledby="h-problem">
     <div class="reveal">
-      <p class="quote" data-t="quote">"What did you find out too late last year?"</p>
+      <h2 class="quote" id="h-problem" data-t="quote">"What did you find out too late last year?"</h2>
       <p data-t="late">Most CEOs of mid-sized manufacturers get the answer at month-end, four weeks after the fact. The numbers are right — they are just late. By then the margin has moved, the customer has gone quiet, the supplier has slipped. This page runs three weeks ahead of the month-end report, built from the same figures your controller already produces.</p>
-      <svg class="tl" viewBox="0 0 600 84" aria-hidden="true">
+      <svg class="tl" viewBox="0 0 600 84" role="img" aria-labelledby="tl-title">
+        <title id="tl-title" data-t="tl_alt">Timeline: something slips in week one. The Monday page reports it at the start of week two. The month-end report arrives four weeks after the event.</title>
         <rect class="bar" x="20" y="36" width="560" height="8" rx="4"/>
         <line class="axis" x1="20" y1="40" x2="580" y2="40"/>
         <line class="tick" x1="20" y1="32" x2="20" y2="48"/>
@@ -154,39 +185,39 @@
     </div>
   </section>
 
-  <section class="s">
+  <section class="s" id="page" tabindex="-1" aria-labelledby="h-page">
     <div class="reveal">
-      <h2 data-t="page_h">This is the page.</h2>
-      <div class="page reveal" aria-label="Example weekly report">
-        <div class="hd"><span data-t="p_title">Weekly review</span><span data-t="p_date">KW 37 · Mon 14 Sep</span></div>
+      <h2 id="h-page" data-t="page_h">This is the page.</h2>
+      <figure class="page reveal" data-ta="p_fig" aria-label="Example of a weekly page">
+        <div class="hd"><span data-t="p_title">Weekly review</span><span data-t="p_date">Week 37 · Mon 14 Sep</span></div>
         <div class="blk">
-          <h4 data-t="p_h1">What changed</h4>
+          <h3 data-t="p_h1">What changed</h3>
           <ul>
             <li data-t="p_c1">Order intake up 6% vs. 4-week average, driven by two customers</li>
             <li data-t="p_c2">Backlog now 9.2 weeks (target 8)</li>
           </ul>
         </div>
         <div class="blk" style="--d:.55s">
-          <h4 data-t="p_h2">What's off</h4>
+          <h3 data-t="p_h2">What's off</h3>
           <ul>
-            <li class="warn"><span data-t="p_o1">Scrap rate on line 3 doubled since Wednesday</span><svg class="spark" viewBox="0 0 80 24"><polyline points="0,16 10,15 20,17 30,15 40,16 50,14 60,8 70,5 80,3"/><circle cx="80" cy="3" r="2.6"/></svg></li>
+            <li class="warn"><span data-t="p_o1">Scrap rate on line 3 doubled since Wednesday</span><svg class="spark" viewBox="0 0 80 24" aria-hidden="true" focusable="false"><polyline points="0,16 10,15 20,17 30,15 40,16 50,14 60,8 70,5 80,3"/><circle cx="80" cy="3" r="2.6"/></svg></li>
             <li class="warn" data-t="p_o2">Receivables over 60 days: +€184k, one customer</li>
           </ul>
         </div>
         <div class="blk" style="--d:1.9s">
-          <h4 data-t="p_h3">Ask about</h4>
+          <h3 data-t="p_h3">Ask about</h3>
           <ul>
             <li data-t="p_a1">Why line 3 — material batch or setup?</li>
             <li data-t="p_a2">Is the €184k a dispute or a payment problem?</li>
           </ul>
         </div>
-      </div>
+      </figure>
     </div>
   </section>
 
-  <section class="s">
+  <section class="s" id="how" tabindex="-1" aria-labelledby="h-how">
     <div class="reveal">
-      <h2 data-t="how_h">How it works</h2>
+      <h2 id="h-how" data-t="how_h">How it works</h2>
       <div class="stack">
         <p data-t="how1">Works from exports you already produce — ERP, accounting, production, even a weekly Excel. No system access needed; your controller stays in control.</p>
         <p style="--d:.15s" data-t="how2">No new software for your team, no logins, no dashboards to learn. You read one page.</p>
@@ -197,9 +228,9 @@
     </div>
   </section>
 
-  <section class="s" id="price">
+  <section class="s" id="price" tabindex="-1" aria-labelledby="h-price">
     <div class="reveal">
-      <h2 data-t="cost_h">What it costs</h2>
+      <h2 id="h-price" data-t="cost_h">What it costs</h2>
       <div class="price">
         <strong class="num" data-n="500">€500</strong><span data-t="cost_day">one day at your office, once</span>
         <strong class="num" data-n="3000">€3,000</strong><span data-t="cost_month">per month, cancel any month</span>
@@ -214,36 +245,48 @@
     </div>
   </section>
 
-  <section class="s" id="contact">
+  <section class="s" id="contact" tabindex="-1" aria-labelledby="h-contact">
     <div class="reveal">
-      <h2 data-t="c_h">Let's look at your numbers.</h2>
+      <h2 id="h-contact" data-t="c_h">Let's look at your numbers.</h2>
       <p class="note" data-t="c_note">30 minutes at your office. No slides, no pitch — I want to see how you check on the business today. If there's a fit, I'll tell you. If not, I'll tell you that too.</p>
       <form id="f" novalidate>
-        <label><span data-t="f_name">Your name</span><input name="name" required autocomplete="name"></label>
-        <label><span data-t="f_company">Company</span><input name="company" required autocomplete="organization"></label>
-        <label><span data-t="f_email">Email</span><input name="email" type="email" required autocomplete="email"></label>
-        <label><span data-t="f_q">What do you check first when you want to know how the business is going?</span><textarea name="q"></textarea></label>
-        <div><button class="cta" type="submit" data-t="f_send">Send request</button></div>
-        <div class="toast" id="toast" role="status"></div>
+        <label for="i-name"><span data-t="f_name">Your name</span></label>
+        <input id="i-name" name="name" required autocomplete="name" aria-describedby="err">
+        <label for="i-company"><span data-t="f_company">Company</span></label>
+        <input id="i-company" name="company" required autocomplete="organization" aria-describedby="err">
+        <label for="i-email"><span data-t="f_email">Email</span></label>
+        <input id="i-email" name="email" type="email" required autocomplete="email" inputmode="email" aria-describedby="err">
+        <label for="i-q"><span data-t="f_q">What do you check first when you want to know how the business is going?</span> <span class="opt" data-t="f_opt">(optional)</span></label>
+        <textarea id="i-q" name="q"></textarea>
+        <p class="hint" data-t="f_hint">This opens your email program with the request filled in and addressed. Nothing is sent from this website.</p>
+        <div><button class="cta" type="submit" data-t="f_send">Send via email</button></div>
+        <p class="err" id="err" role="alert"></p>
+        <p class="toast" id="toast" role="status"></p>
       </form>
     </div>
   </section>
 
 </main>
 
+<p class="keys" id="keys" aria-hidden="true" data-t="keys"><kbd>↑</kbd> <kbd>↓</kbd> move between sections</p>
+
 <script>
-  const TO='you@example.com';
+  const TO='david@raedical.co';
 
   const T={
     en:{
       title:'Monday, 07:00 — one page on your business',
-      brand:'Monday, 07:00', nav_contact:'Contact',
+      skip:'Skip to content', brand:'Monday, 07:00', nav_contact:'Contact',
+      nav_site:'Site', nav_lang:'Language', lang_de:'Deutsch', lang_en:'English', nav_sections:'Sections',
+      d0:'Start', d1:'The problem', d2:'The page', d3:'How it works', d4:'What it costs', d5:'Contact',
+      keys:'<kbd>↑</kbd> <kbd>↓</kbd> move between sections',
       h1:'Every Monday,<br>07:00.<br>One page.',
       lede:"What changed in your business last week, what's off, and what to ask your team about. Before the month-end report — not after.",
       quote:'"What did you find out too late last year?"',
       late:'Most CEOs of mid-sized manufacturers get the answer at month-end, four weeks after the fact. The numbers are right — they are just late. By then the margin has moved, the customer has gone quiet, the supplier has slipped. This page runs three weeks ahead of the month-end report, built from the same figures your controller already produces.',
+      tl_alt:'Timeline: something slips in week one. The Monday page reports it at the start of week two. The month-end report arrives four weeks after the event.',
       tl_event:'Something slips', tl_monday:'Monday, 07:00', tl_end:'Month-end report', tl_cap:'Same numbers. Three weeks earlier.',
-      page_h:'This is the page.', p_title:'Weekly review', p_date:'Week 37 · Mon 14 Sep',
+      page_h:'This is the page.', p_fig:'Example of a weekly page', p_title:'Weekly review', p_date:'Week 37 · Mon 14 Sep',
       p_h1:'What changed', p_c1:'Order intake up 6% vs. 4-week average, driven by two customers', p_c2:'Backlog now 9.2 weeks (target 8)',
       p_h2:"What's off", p_o1:'Scrap rate on line 3 doubled since Wednesday', p_o2:'Receivables over 60 days: +€184k, one customer',
       p_h3:'Ask about', p_a1:'Why line 3 — material batch or setup?', p_a2:'Is the €184k a dispute or a payment problem?',
@@ -262,20 +305,26 @@
       c_h:"Let's look at your numbers.",
       c_note:"30 minutes at your office. No slides, no pitch — I want to see how you check on the business today. If there's a fit, I'll tell you. If not, I'll tell you that too.",
       f_name:'Your name', f_company:'Company', f_email:'Email',
-      f_q:'What do you check first when you want to know how the business is going?', f_send:'Send request',
-      err:'Name, company and a valid email are needed.',
-      toast:'Your mail app should open now. The message is also copied to your clipboard.',
+      f_q:'What do you check first when you want to know how the business is going?', f_opt:'(optional)',
+      f_hint:'This opens your email program with the request filled in and addressed. Nothing is sent from this website.',
+      f_send:'Send via email',
+      err_req:'Please fill in your name and company.', err_email:'Please enter a valid email address.',
+      toast:'Your email program should open now. The text is also copied to your clipboard in case it does not.',
       subject:'30-minute conversation — ', m_name:'Name', m_company:'Company', m_email:'Email', m_q:'What I check first'
     },
     de:{
       title:'Montag, 07:00 — eine Seite über Ihr Unternehmen',
-      brand:'Montag, 07:00', nav_contact:'Kontakt',
+      skip:'Zum Inhalt springen', brand:'Montag, 07:00', nav_contact:'Kontakt',
+      nav_site:'Website', nav_lang:'Sprache', lang_de:'Deutsch', lang_en:'English', nav_sections:'Abschnitte',
+      d0:'Start', d1:'Das Problem', d2:'Die Seite', d3:'So funktioniert es', d4:'Was es kostet', d5:'Kontakt',
+      keys:'<kbd>↑</kbd> <kbd>↓</kbd> wechseln zwischen Abschnitten',
       h1:'Jeden Montag,<br>07:00.<br>Eine Seite.',
       lede:'Was sich in Ihrem Unternehmen letzte Woche verändert hat, was nicht stimmt und wonach Sie Ihr Team fragen sollten. Vor dem Monatsabschluss – nicht danach.',
       quote:'„Was haben Sie letztes Jahr zu spät erfahren?“',
       late:'Die meisten Geschäftsführer mittelständischer Industriebetriebe bekommen die Antwort zum Monatsende – vier Wochen nach dem Ereignis. Die Zahlen stimmen, sie kommen nur spät. Bis dahin ist die Marge gewandert, der Kunde still geworden, der Lieferant in Verzug. Diese Seite läuft drei Wochen vor dem Monatsbericht – aus denselben Zahlen, die Ihr Controlling ohnehin erstellt.',
+      tl_alt:'Zeitstrahl: In Woche eins kippt etwas. Die Montagsseite meldet es zu Beginn von Woche zwei. Der Monatsbericht kommt vier Wochen nach dem Ereignis.',
       tl_event:'Etwas kippt', tl_monday:'Montag, 07:00', tl_end:'Monatsbericht', tl_cap:'Dieselben Zahlen. Drei Wochen früher.',
-      page_h:'Das ist die Seite.', p_title:'Wochenübersicht', p_date:'KW 37 · Mo 14. Sep',
+      page_h:'Das ist die Seite.', p_fig:'Beispiel einer Wochenseite', p_title:'Wochenübersicht', p_date:'KW 37 · Mo 14. Sep',
       p_h1:'Was sich verändert hat', p_c1:'Auftragseingang +6 % gegenüber 4-Wochen-Schnitt, getragen von zwei Kunden', p_c2:'Auftragsbestand jetzt 9,2 Wochen (Ziel 8)',
       p_h2:'Was nicht stimmt', p_o1:'Ausschussquote Linie 3 seit Mittwoch verdoppelt', p_o2:'Forderungen über 60 Tage: +184 T€, ein Kunde',
       p_h3:'Fragen Sie nach', p_a1:'Warum Linie 3 – Materialcharge oder Rüstung?', p_a2:'Sind die 184 T€ ein Streitfall oder ein Zahlungsproblem?',
@@ -294,9 +343,11 @@
       c_h:'Schauen wir auf Ihre Zahlen.',
       c_note:'30 Minuten in Ihrem Büro. Keine Folien, kein Pitch – ich möchte sehen, wie Sie heute auf das Unternehmen blicken. Wenn es passt, sage ich es Ihnen. Wenn nicht, sage ich Ihnen das auch.',
       f_name:'Ihr Name', f_company:'Unternehmen', f_email:'E-Mail',
-      f_q:'Was schauen Sie als Erstes an, wenn Sie wissen wollen, wie es dem Unternehmen geht?', f_send:'Anfrage senden',
-      err:'Name, Unternehmen und eine gültige E-Mail-Adresse werden benötigt.',
-      toast:'Ihr E-Mail-Programm sollte sich jetzt öffnen. Die Nachricht ist auch in Ihre Zwischenablage kopiert.',
+      f_q:'Was schauen Sie als Erstes an, wenn Sie wissen wollen, wie es dem Unternehmen geht?', f_opt:'(optional)',
+      f_hint:'Dabei öffnet sich Ihr E-Mail-Programm mit der fertig ausgefüllten und adressierten Anfrage. Von dieser Website wird nichts versendet.',
+      f_send:'Per E-Mail senden',
+      err_req:'Bitte geben Sie Ihren Namen und Ihr Unternehmen an.', err_email:'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+      toast:'Ihr E-Mail-Programm sollte sich jetzt öffnen. Der Text ist zusätzlich in Ihre Zwischenablage kopiert, falls nicht.',
       subject:'30-minütiges Gespräch — ', m_name:'Name', m_company:'Unternehmen', m_email:'E-Mail', m_q:'Was ich als Erstes anschaue'
     }
   };
@@ -319,6 +370,7 @@
   function setLang(l){
     lang=l;store.set(l);document.documentElement.lang=l;document.title=T[l].title;
     document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=T[l][el.dataset.t]);
+    document.querySelectorAll('[data-ta]').forEach(el=>el.setAttribute('aria-label',T[l][el.dataset.ta]));
     document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===l)));
     renderNums(1);
   }
@@ -332,10 +384,53 @@
   }),{threshold:.2});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  document.getElementById('f').addEventListener('submit',async e=>{
+  // Section navigation: arrow keys, dots, current-section tracking
+  const secs=[...document.querySelectorAll('main .s')],dots=[...document.querySelectorAll('nav.dots a')],keys=document.getElementById('keys');
+  let cur=0;
+  const mid=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    cur=secs.indexOf(e.target);
+    dots.forEach((d,i)=>i===cur?d.setAttribute('aria-current','true'):d.removeAttribute('aria-current'));
+  }),{rootMargin:'-50% 0px -50% 0px',threshold:0});
+  secs.forEach(s=>mid.observe(s));
+
+  function goTo(i){
+    i=Math.max(0,Math.min(secs.length-1,i));
+    secs[i].scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});
+    secs[i].focus({preventScroll:true});
+    keys.classList.add('off');
+  }
+  addEventListener('keydown',e=>{
+    if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;
+    const t=e.target;
+    if(t.matches('input,textarea,select,[contenteditable]'))return;
+    if(e.key===' '&&t.matches('a,button,[role=button]'))return;
+    const r=secs[cur].getBoundingClientRect(),H=innerHeight;
+    if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){
+      if(e.key!=='PageDown'&&r.bottom>H+4)return;
+      e.preventDefault();goTo(cur+1);
+    }else if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){
+      if(e.key!=='PageUp'&&r.top<-4)return;
+      e.preventDefault();goTo(cur-1);
+    }else if(e.key==='Home'){e.preventDefault();goTo(0)}
+    else if(e.key==='End'){e.preventDefault();goTo(secs.length-1)}
+  });
+  dots.forEach((d,i)=>d.onclick=e=>{e.preventDefault();goTo(i)});
+
+  // Contact: opens the visitor's mail client with the request filled in; nothing is sent from here
+  const form=document.getElementById('f');
+  form.addEventListener('submit',async e=>{
     e.preventDefault();
-    const d=Object.fromEntries(new FormData(e.target)),t=T[lang],toast=document.getElementById('toast');
-    if(!d.name||!d.company||!/^\S+@\S+\.\S+$/.test(d.email)){toast.textContent=t.err;return}
+    const t=T[lang],err=document.getElementById('err'),toast=document.getElementById('toast');
+    const f={name:form.name,company:form.company,email:form.email};
+    const d={name:f.name.value.trim(),company:f.company.value.trim(),email:f.email.value.trim(),q:form.q.value.trim()};
+    const bad=[];
+    if(!d.name)bad.push(f.name);if(!d.company)bad.push(f.company);
+    const emailBad=!/^\S+@\S+\.\S+$/.test(d.email);if(emailBad)bad.push(f.email);
+    Object.values(f).forEach(i=>i.setAttribute('aria-invalid',String(bad.includes(i))));
+    toast.textContent='';
+    if(bad.length){err.textContent=bad.length===1&&emailBad?t.err_email:t.err_req+(emailBad?' '+t.err_email:'');bad[0].focus();return}
+    err.textContent='';
     const body=`${t.m_name}: ${d.name}\n${t.m_company}: ${d.company}\n${t.m_email}: ${d.email}\n\n${t.m_q}:\n${d.q||'-'}`;
     try{await navigator.clipboard.writeText(body)}catch(_){}
     location.href=`mailto:${TO}?subject=${encodeURIComponent(t.subject+d.company)}&body=${encodeURIComponent(body)}`;
