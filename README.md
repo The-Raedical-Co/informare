@@ -13,18 +13,18 @@ No dashboards. No alerts. Just the insight you need before month-end reports arr
 
 ## Features
 
-- **Real-time integration** with your existing systems (ERP, accounting, production data, Excel exports)
+- **Works from exports you already produce** (ERP, accounting, production, Excel) — no system access needed
 - **Human-verified anomalies** — every finding is checked by a person before it reaches you
+- **Shared question board** — drop a question, it's worked through one at a time, the queue is visible
 - **Zero learning curve** — your team doesn't need new software or logins
-- **Fast setup** — operational in two weeks
 - **No contracts** — month-to-month, cancel anytime
 
 ## Pricing
 
-€1,500 per month
-- First month free
-- If it doesn't change a decision, you owe nothing
-- Three pilot companies accepted
+1. **€500** — one day on site, once. We look at how you check on the business today and which export becomes page one.
+2. **€3,000 per month** — the page every Monday plus the shared question board. If a month's pages don't change a single decision, that month isn't billed.
+
+Three companies at a time.
 
 ## Get Started
 
