@@ -15,6 +15,10 @@ Built from exports the company already produces (ERP, accounting, production, Ex
 
 Once a month, the view outside: competitors, tariffs, dated regulatory deadlines. Built from public sources only (registers, building permits, exhibitor lists, patents, job postings), so it needs none of the customer's internal data. Every number is labelled published or estimated with an error band. Regulatory items are reported as dated facts with sources, never as legal advice. Once a quarter it is formatted as the pre-read for the advisory board.
 
+## The hook
+
+The contact form asks only for name, company and email. In return the sender gets one free page on their surroundings (competitors, deadlines, signals) built from public sources, before any conversation. Subject line "Vorschau — {company}" separates these from plain requests.
+
 ## Pricing
 
 1. **€500** once: one day on site. We look at how the business is checked on today and which export becomes page one.
