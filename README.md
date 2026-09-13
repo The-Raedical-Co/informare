@@ -11,17 +11,19 @@ Every Monday, a single page for the Geschäftsführer of a mid-sized manufacture
 
 Built from exports the company already produces (ERP, accounting, production, Excel). No system access, no new software, no dashboards. Every anomaly is read by a person before it reaches the reader. Questions, not recommendations.
 
-## The radar (add-on)
+## The radar (included)
 
 Once a month, the view outside: competitors, tariffs, dated regulatory deadlines. Built from public sources only (registers, building permits, exhibitor lists, patents, job postings), so it needs none of the customer's internal data. Every number is labelled published or estimated with an error band. Regulatory items are reported as dated facts with sources, never as legal advice. Once a quarter it is formatted as the pre-read for the advisory board.
+
+## The hook
+
+The contact form asks only for name, company and email. In return the sender gets a free preview of their surroundings (competitors, deadlines, signals) built from public sources, before any conversation. Subject line "Vorschau — {company}" separates these from plain requests.
 
 ## Pricing
 
 1. **€500** once: one day on site. We look at how the business is checked on today and which export becomes page one.
-2. **€3,000 per month**, cancel any month: the page every Monday plus the shared question board. If a month's pages don't change a single decision, that month isn't billed.
-3. **+€5,000 per month**: the monthly radar, for firms with an advisory board or a bank at the table.
+2. **€3,000 per month**, cancel any month: the page every Monday plus the shared question board, plus the monthly radar. If a month's pages don't change a single decision, that month isn't billed.
 
-Three companies at a time.
 
 ## Repository
 
