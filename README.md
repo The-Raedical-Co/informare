@@ -1,35 +1,29 @@
-# Informare
+# Kundschafter
 
-A one-page weekly business intelligence solution for mid-sized manufacturers.
+One page on your business, every Monday. Once a month, the view outside.
 
-## Overview
+## The page
 
-**Informare** delivers one essential page every Monday at 07:00:
-- What changed in your business last week
-- What's off or needs attention
-- What questions to ask your team
+Every Monday, a single page for the Geschäftsführer of a mid-sized manufacturer:
+- What changed last week
+- What's off
+- What to ask your team about
 
-No dashboards. No alerts. Just the insight you need before month-end reports arrive too late.
+Built from exports the company already produces (ERP, accounting, production, Excel). No system access, no new software, no dashboards. Every anomaly is read by a person before it reaches the reader. Questions, not recommendations.
 
-## Features
+## The radar (add-on)
 
-- **Works from exports you already produce** (ERP, accounting, production, Excel) — no system access needed
-- **Human-verified anomalies** — every finding is checked by a person before it reaches you
-- **Shared question board** — drop a question, it's worked through one at a time, the queue is visible
-- **Zero learning curve** — your team doesn't need new software or logins
-- **No contracts** — month-to-month, cancel anytime
+Once a month, the view outside: competitors, tariffs, dated regulatory deadlines. Built from public sources only (registers, building permits, exhibitor lists, patents, job postings), so it needs none of the customer's internal data. Every number is labelled published or estimated with an error band. Regulatory items are reported as dated facts with sources, never as legal advice. Once a quarter it is formatted as the pre-read for the advisory board.
 
 ## Pricing
 
-1. **€500** — one day on site, once. We look at how you check on the business today and which export becomes page one.
-2. **€3,000 per month** — the page every Monday plus the shared question board. If a month's pages don't change a single decision, that month isn't billed.
+1. **€500** once: one day on site. We look at how the business is checked on today and which export becomes page one.
+2. **€3,000 per month**, cancel any month: the page every Monday plus the shared question board. If a month's pages don't change a single decision, that month isn't billed.
+3. **+€5,000 per month**: the monthly radar, for firms with an advisory board or a bank at the table.
 
 Three companies at a time.
 
-## Get Started
+## Repository
 
-[Book a 30-minute conversation](https://the-raedical-co.github.io/informare/) to explore whether Informare is a fit for your business.
-
----
-
-Built with clarity and intentionality.
+- `index.html`: the site, German by default with an English toggle.
+- `docs/interview-guide.md`: the Design Thinking guide for the five discovery conversations that precede any build.
