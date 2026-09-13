@@ -97,6 +97,7 @@ Korrekturen wörtlich mitschreiben. Korrekturen bedeuten Beteiligung, Nicken bed
 
 Antwort abwarten. Die Wörter notieren, nicht den Ton. „Schicken Sie mir was" ist ein Nein. Ein Datum oder ein Name im Haus ist ein Ja.
 
+- Nur nach einer Antwort auf die erste Frage, nie davor: „Und wenn einmal im Monat ein Blick nach außen dazukäme: Wettbewerber, Zoll, Fristen, als Vorlage für den Beirat, 5.000 Euro im Monat zusätzlich?" (Preistest. Die erste Reaktion wörtlich notieren. Ein Gegenangebot ist ein Ja, ein Schweigen ist ein Nein.)
 - „Mit wem sollte ich noch sprechen?" (Ziel: zwei Namen.)
 - Schlussfrage: „Was hat Sie in den letzten drei Monaten nachts wachgehalten? Und was haben Sie am nächsten Morgen getan?"
 
