@@ -19,6 +19,10 @@ Once a month, the view outside: competitors, tariffs, dated regulatory deadlines
 
 The contact form asks only for name, company and email. In return the sender gets a free preview of their surroundings (competitors, deadlines, signals) built from public sources, before any conversation. Subject line "Vorschau — {company}" separates these from plain requests.
 
+## The mark
+
+`logo.svg` is the product in miniature: seven dots for the week with Monday filled in, two lines for the page, and one amber line for the thing that is off this week. It is inlined in the header and next to the title, and serves as the favicon.
+
 ## Pricing
 
 1. **€500** once: one day on site. We look at how the business is checked on today and which export becomes page one.

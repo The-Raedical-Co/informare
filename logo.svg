@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Kundschafter">
+  <title>Kundschafter</title>
+  <desc>Seven dots for the week with Monday filled in, two lines for the page, and one amber line for what is off this week.</desc>
+  <g fill="#B7C4CF">
+    <circle cx="11" cy="12" r="4" fill="#17212B"/>
+    <circle cx="19.5" cy="12" r="2.2"/><circle cx="26.5" cy="12" r="2.2"/><circle cx="33.5" cy="12" r="2.2"/>
+    <circle cx="40.5" cy="12" r="2.2"/><circle cx="47.5" cy="12" r="2.2"/><circle cx="54.5" cy="12" r="2.2"/>
+  </g>
+  <g stroke-width="6" stroke-linecap="round">
+    <line x1="10" y1="30" x2="54" y2="30" stroke="#17212B"/>
+    <line x1="10" y1="43" x2="54" y2="43" stroke="#17212B"/>
+    <line x1="10" y1="56" x2="34" y2="56" stroke="#D6A21A"/>
+  </g>
+</svg>

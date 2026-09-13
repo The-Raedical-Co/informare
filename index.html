@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#EDEFEC">
 <title>Kundschafter — eine Seite über Ihr Unternehmen, jeden Montag</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -34,6 +35,13 @@
   .s{min-height:100svh;display:grid;place-items:center;padding:112px max(32px,env(safe-area-inset-right)) 72px max(32px,env(safe-area-inset-left));scroll-snap-align:start}
   .s:focus{outline:none}
   .s>div{width:min(860px,100%)}
+
+  /* Mark: the week, the page, and the one line that is off */
+  .mark{width:1em;height:1em;flex:none}
+  .brand{display:inline-flex;align-items:center;gap:.5em}
+  .brand .mark{font-size:1.2em}
+  .hero{display:flex;align-items:flex-start;gap:.3em}
+  .hero .mark{font-size:clamp(44px,7.5vw,96px);margin-top:.1em}
 
   h1{font-family:var(--serif);font-weight:600;font-size:clamp(44px,7.5vw,96px);line-height:1.02;letter-spacing:-.02em}
   h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,48px);line-height:1.1;margin-bottom:28px;text-wrap:balance}
@@ -74,15 +82,27 @@
   .opt{font-weight:400;color:var(--muted)}
   input,textarea{font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);min-height:44px}
   input[aria-invalid=true],textarea[aria-invalid=true]{border-color:var(--err)}
-  textarea{min-height:110px;resize:vertical}
-  form div{margin-top:12px}
+  textarea{min-height:80px;resize:vertical}
+  .send{margin-top:12px}
   .note{color:var(--steel);font-size:15px;max-width:52ch;margin-top:16px}
   .hint{font-size:14px;color:var(--muted);max-width:52ch}
-  .err{font-size:15px;color:var(--err);min-height:22px;font-weight:500}
-  .toast{font-size:15px;color:var(--steel);min-height:22px}
+  .msg{display:grid}
+  .msg>p{grid-area:1/1;min-height:22px}
+  .err{font-size:15px;color:var(--err);font-weight:500}
+  .toast{font-size:15px;color:var(--steel)}
   .alt{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);max-width:520px;font-size:15px;color:var(--muted)}
   .alt a{font-weight:500;text-decoration:underline;text-underline-offset:3px}
   input,textarea,.cta,.stack p,.page{scroll-margin-top:90px}
+
+  /* Desktop: radar and contact sit in two columns so each fits one screen */
+  .two{display:grid;gap:32px 48px;align-items:start}
+  @media (min-width:1000px){
+    .s.wide>div{width:min(1100px,100%)}
+    .two{grid-template-columns:1fr 1.15fr}
+    .two .page{margin-top:0;max-width:none}
+    .two form{margin-top:0;max-width:none;grid-column:2;grid-row:1/3}
+    .two .alt{grid-column:1;grid-row:2;margin-top:0}
+  }
 
   nav.dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:grid;gap:2px;z-index:10}
   nav.dots a{width:28px;height:28px;display:grid;place-items:center;border-radius:50%}
@@ -100,6 +120,8 @@
   @media (max-width:600px){
     header{padding:10px max(18px,env(safe-area-inset-right)) 10px max(18px,env(safe-area-inset-left))}
     .brand{font-size:16px}
+    nav.dots,.keys{display:none}
+    .hero{display:block}.hero .mark{display:block;margin:0 0 18px}
     .s{padding:96px max(18px,env(safe-area-inset-right)) 64px max(18px,env(safe-area-inset-left))}
     .page{max-width:100%;padding:22px 20px}
     .tl{font-size:21px;margin-top:28px}
@@ -108,7 +130,7 @@
   }
   @media (min-width:1500px){
     .s>div{width:min(1100px,100%)}
-    h1{font-size:120px}
+    h1{font-size:120px}.hero .mark{font-size:120px}
     h2{font-size:64px}
     h2.quote{font-size:clamp(34px,2.4vw,48px);max-width:32ch}
     .lede{font-size:30px;max-width:38ch}
@@ -127,9 +149,10 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="mark" viewBox="0 0 64 64"><g fill="#B7C4CF"><circle cx="11" cy="12" r="4" fill="#17212B"/><circle cx="19.5" cy="12" r="2.2"/><circle cx="26.5" cy="12" r="2.2"/><circle cx="33.5" cy="12" r="2.2"/><circle cx="40.5" cy="12" r="2.2"/><circle cx="47.5" cy="12" r="2.2"/><circle cx="54.5" cy="12" r="2.2"/></g><g stroke-width="6" stroke-linecap="round"><line x1="10" y1="30" x2="54" y2="30" stroke="#17212B"/><line x1="10" y1="43" x2="54" y2="43" stroke="#17212B"/><line x1="10" y1="56" x2="34" y2="56" stroke="#D6A21A"/></g></symbol></svg>
 <a class="skip" href="#main" data-t="skip">Zum Inhalt springen</a>
 <header>
-  <a class="brand" href="#top">Kundschafter</a>
+  <a class="brand" href="#top"><svg class="mark" aria-hidden="true" focusable="false"><use href="#mark"/></svg>Kundschafter</a>
   <nav data-ta="nav_site" aria-label="Website">
     <a class="navlink" href="#contact" data-t="nav_contact">Kontakt</a>
     <div class="lang" role="group" data-ta="nav_lang" aria-label="Sprache">
@@ -150,7 +173,10 @@
 <main id="main">
   <section class="s" id="top" tabindex="-1" aria-labelledby="h-top">
     <div>
-      <h1 id="h-top" data-t="h1">Jeden Montag.<br>Eine Seite.</h1>
+      <div class="hero">
+        <svg class="mark" aria-hidden="true" focusable="false"><use href="#mark"/></svg>
+        <h1 id="h-top" data-t="h1">Jeden Montag.<br>Eine Seite.</h1>
+      </div>
       <p class="lede" data-t="lede">Was sich in Ihrem Unternehmen letzte Woche verändert hat, was nicht stimmt und wonach Sie fragen sollten. Drei Wochen vor dem Monatsbericht.</p>
     </div>
   </section>
@@ -215,15 +241,16 @@
     </div>
   </section>
 
-  <section class="s" id="radar" tabindex="-1" aria-labelledby="h-radar">
+  <section class="s wide" id="radar" tabindex="-1" aria-labelledby="h-radar">
     <div>
       <h2 id="h-radar" data-t="radar_h">Einmal im Monat: der Blick nach draußen.</h2>
+      <div class="two">
       <div class="stack">
         <p data-t="radar1">Wettbewerber, Zölle, Fristen. Aus öffentlichen Quellen: Register, Bauanträge, Ausstellerlisten, Patente, Stellenanzeigen. Keine Ihrer internen Daten.</p>
-        <p data-t="radar2">Jede Zahl trägt ihr Etikett: veröffentlicht oder geschätzt, mit Fehlerband. Regulatorisches als datierte Fakten mit Quelle. Was es rechtlich für Sie heißt, klärt Ihr Anwalt.</p>
-        <p data-t="radar3">Die erste Ausgabe liegt irgendwo daneben. Sie sagen uns, wo. Die zweite ist enger. Einmal im Quartal als Vorlage für den Beirat. Eine kostenlose Vorschau bekommen Sie, sobald Sie uns Ihren Firmennamen nennen.</p>
+        <p data-t="radar2">Jede Zahl trägt ihr Etikett: veröffentlicht oder geschätzt. Regulatorisches als datierte Fakten mit Quelle, keine Rechtsberatung.</p>
+        <p data-t="radar3">Die erste Ausgabe liegt irgendwo daneben, Sie sagen uns wo. Eine kostenlose Vorschau bekommen Sie, sobald Sie uns Ihren Firmennamen nennen.</p>
       </div>
-      <figure class="page" style="margin-top:32px" data-ta="r_fig" aria-label="Beispiel eines Monatsradars">
+      <figure class="page" data-ta="r_fig" aria-label="Beispiel eines Monatsradars">
         <div class="hd"><span data-t="r_title">Monatsradar</span><span data-t="r_date">Ausgabe 3 · März</span></div>
         <h3 data-t="r_h1">Wettbewerber</h3>
         <ul>
@@ -240,6 +267,7 @@
           <li data-t="r_a2">Welche Ihrer Baureihen sind im Januar 2027 nicht konform?</li>
         </ul>
       </figure>
+      </div>
     </div>
   </section>
 
@@ -258,10 +286,12 @@
     </div>
   </section>
 
-  <section class="s" id="contact" tabindex="-1" aria-labelledby="h-contact">
-    <div>
+  <section class="s wide" id="contact" tabindex="-1" aria-labelledby="h-contact">
+    <div class="two">
+      <div>
       <h2 id="h-contact" data-t="c_h">Eine Vorschau auf Ihr Umfeld. Kostenlos.</h2>
       <p class="note" data-t="c_note">Sie nennen uns Ihr Unternehmen. Wir schicken Ihnen eine Vorschau über Ihr Umfeld: Wettbewerber, Fristen, Signale. Aus öffentlichen Quellen, ohne Zugriff auf Ihre Daten. Danach, wenn Sie wollen, 30 Minuten in Ihrem Büro. Keine Folien, kein Pitch.</p>
+      </div>
       <form id="f" novalidate>
         <label for="i-name"><span data-t="f_name">Ihr Name</span></label>
         <input id="i-name" name="name" required autocomplete="name" aria-describedby="err">
@@ -272,9 +302,8 @@
         <label for="i-q"><span data-t="f_q">Was haben Sie letztes Jahr zu spät erfahren?</span> <span class="opt" data-t="f_opt">(optional)</span></label>
         <textarea id="i-q" name="q"></textarea>
         <p class="hint" data-t="f_hint">Dabei öffnet sich Ihr E-Mail-Programm mit der fertig ausgefüllten Anfrage. Von dieser Website wird nichts versendet.</p>
-        <div><button class="cta" type="submit" data-t="f_send">Per E-Mail senden</button></div>
-        <p class="err" id="err" role="alert"></p>
-        <p class="toast" id="toast" role="status"></p>
+        <div class="send"><button class="cta" type="submit" data-t="f_send">Per E-Mail senden</button></div>
+        <div class="msg"><p class="err" id="err" role="alert"></p><p class="toast" id="toast" role="status"></p></div>
       </form>
       <p class="alt"><span data-t="f_alt">Oder schreiben Sie direkt:</span> <a id="mail" href="mailto:david@raedical.co">david@raedical.co</a></p>
     </div>
@@ -307,8 +336,8 @@
       how4:'Erste Seite zwei Wochen nach dem Tag vor Ort. Keine neue Software, keine Logins.',
       radar_h:'Einmal im Monat: der Blick nach draußen.',
       radar1:'Wettbewerber, Zölle, Fristen. Aus öffentlichen Quellen: Register, Bauanträge, Ausstellerlisten, Patente, Stellenanzeigen. Keine Ihrer internen Daten.',
-      radar2:'Jede Zahl trägt ihr Etikett: veröffentlicht oder geschätzt, mit Fehlerband. Regulatorisches als datierte Fakten mit Quelle. Was es rechtlich für Sie heißt, klärt Ihr Anwalt.',
-      radar3:'Die erste Ausgabe liegt irgendwo daneben. Sie sagen uns, wo. Die zweite ist enger. Einmal im Quartal als Vorlage für den Beirat. Eine kostenlose Vorschau bekommen Sie, sobald Sie uns Ihren Firmennamen nennen.',
+      radar2:'Jede Zahl trägt ihr Etikett: veröffentlicht oder geschätzt. Regulatorisches als datierte Fakten mit Quelle, keine Rechtsberatung.',
+      radar3:'Die erste Ausgabe liegt irgendwo daneben, Sie sagen uns wo. Eine kostenlose Vorschau bekommen Sie, sobald Sie uns Ihren Firmennamen nennen.',
       r_fig:'Beispiel eines Monatsradars', r_title:'Monatsradar', r_date:'Ausgabe 3 · März',
       r_h1:'Wettbewerber', r_c1:'Hersteller B: Halle +40 % seit 2024, Belegschaft unverändert', r_t1:'geschätzt ±20 %',
       r_c2:'Neuer Anbieter aus Ningbo, erstmals in der Ausstellerliste Hannover Messe, 120 m²', r_t2:'veröffentlicht',
@@ -351,8 +380,8 @@
       how4:'First page two weeks after the on-site day. No new software, no logins.',
       radar_h:'Once a month: the view outside.',
       radar1:'Competitors, tariffs, deadlines. From public sources: registers, building permits, exhibitor lists, patents, job postings. None of your internal data.',
-      radar2:'Every number carries its label: published or estimated, with an error band. Regulation as dated facts with sources. What it means for you legally is for your counsel.',
-      radar3:'The first issue will be off somewhere. You tell us where. The second is tighter. Once a quarter, formatted as the pre-read for your advisory board. You get a free preview as soon as you tell us your company name.',
+      radar2:'Every number carries its label: published or estimated. Regulation as dated facts with sources, not legal advice.',
+      radar3:'The first issue will be off somewhere, you tell us where. You get a free preview as soon as you tell us your company name.',
       r_fig:'Example of a monthly radar', r_title:'Monthly radar', r_date:'Issue 3 · March',
       r_h1:'Competitors', r_c1:'Manufacturer B: hall +40% since 2024, headcount flat', r_t1:'estimated ±20%',
       r_c2:'New entrant from Ningbo, first time on the Hannover Messe exhibitor list, 120 m²', r_t2:'published',
