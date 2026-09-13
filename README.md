@@ -20,7 +20,6 @@ Once a month, the view outside: competitors, tariffs, dated regulatory deadlines
 1. **€500** once: one day on site. We look at how the business is checked on today and which export becomes page one.
 2. **€3,000 per month**, cancel any month: the page every Monday plus the shared question board. If a month's pages don't change a single decision, that month isn't billed.
 
-Three companies at a time.
 
 ## Repository
 
